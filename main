@@ -1,0 +1,87 @@
+import praw
+import config
+import time
+import re
+import urllib.request, urllib.error
+import urllib
+import requests
+from prawcore import NotFound
+import traceback
+
+
+
+print()
+print("Initialising capital corrector Bot by /u/WhyDidntYouDoMyJob v4")
+print()
+
+# Login details.
+def bot_login():
+    r=praw.Reddit(username=config.username,
+                password=config.password,
+                client_id=config.client_id,
+                client_secret=config.client_secret,
+                user_agent="/u/WhyDidntYouDoMyJob's sub and name corrector v4")
+    return r
+
+info="\n \n __________________________________ \n **^^Capital ^^Corrector ^^Bot ^^v4** ^^| ^^[Information](https://www.reddit.com/user/Capital_R_and_U_Bot/comments/6fmx4n/information/) ^^| ^^[Contact](https://www.reddit.com/message/compose/?to=whydidntyoudomyjob)"
+prevcom=0
+links=[]
+
+# Logs in.
+r=bot_login()
+
+def run_bot(r):
+    prevcom=0
+    begin=0
+    while True:
+        for comment in r.subreddit("all").comments(limit=100): # For every comment in the last 100 comments.
+        
+            if "R/" or "U/" in comment.body and comment.id!=prevcom:
+                words=re.split(" |- |\. |, |: |; |\) |! |\? |' ", comment.body)
+                for i in words:
+                    if "/R/" in i or "/U/" in i and comment.id!=prevcom:
+                        n=3
+                        begin=(i[:n])
+                        end=(i[n:])
+                    elif "R/" in i or "U/" in i and comment.id!=prevcom:
+                        n=2
+                        begin=(i[:n])
+                        end=(i[n:])
+                    if begin=="/R/" or begin=="R/":
+                        try:
+                            subs=r.subreddit(end).subscribers
+                            subname=r.subreddit(end)
+                            subname.display_name
+                            subname.title
+                            if r.subreddit(end).over18:
+                                nsfwtext=("[NSFW]")
+                            else:
+                                nsfwtext=("")
+                            if comment.id!=prevcom and subs>0 and (begin+end) in comment.body:
+                                prevcom=comment.id
+                                comment.reply("/r/"+subname.display_name+" "+nsfwtext+info)
+                                print("Replied to comment " +comment.id)
+                        except:
+                            pass
+                    elif begin=="/U/" or begin=="U/":
+                        try:
+                            karma=r.redditor(end).comment_karma
+                            userdisplay=r.redditor(end)
+                            userdisplay.name
+                            userdisplay.comment_karma
+                            if comment.id!=prevcom and (begin+end) in comment.body:
+                                prevcom=comment.id
+                                comment.reply("/u/"+userdisplay.name+info)
+                                print("Replied to comment " +comment.id)
+                        except:
+                            pass
+                    
+
+
+while True:
+    try:
+        run_bot(r)
+    except:
+        traceback.print_exc()
+        time.sleep(5)
+        run_bot(r)
