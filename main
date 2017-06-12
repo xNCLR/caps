@@ -1,4 +1,4 @@
-#Copyright 2017, Alfie Coates AKA /u/WhyDidntYouDoMyJob on Reddit AKA xNCLR on GitHub, All rights reserved.
+#Copyright 2017, Alfie Coates AKA WhyDidntYouDoMyJob and Capital_R_and_U_Bot on Reddit AKA xNCLR on GitHub, All rights reserved.
 
 import praw
 import config
