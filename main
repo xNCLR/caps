@@ -1,3 +1,5 @@
+#Copyright 2017, Alfie Coates AKA /u/WhyDidntYouDoMyJob on Reddit AKA xNCLR on GitHub, All rights reserved.
+
 import praw
 import config
 import time
