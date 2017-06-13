@@ -1,4 +1,5 @@
 #Copyright 2017, Alfie Coates AKA WhyDidntYouDoMyJob and Capital_R_and_U_Bot on Reddit AKA xNCLR on GitHub, All rights reserved.
+#This code is incomplete but shows the general concept of how it works. Consider it pseudocode if you like. Shoot me a PM if you want full access.
 
 import praw
 import config
